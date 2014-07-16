@@ -17,6 +17,28 @@ describe Pizza do
       expect(pizza.toppings.size).to eq(1)
       expect(pizza.toppings.first.name).to eq('cheese')
     end
+    it 'returns true if all toppings are vegetarian' do
+      toppings = [
+        Topping.new('mushrooms', vegetarian: true),
+        Topping.new('pepperoni')
+      ]
+      pizza = Pizza.new(toppings)
+
+      expect(pizza.vegetarian?).to eq(false)
+    end
+    it 'should add a new topping to the toppings array' do
+      pizza = Pizza.new
+      pepperoni = Topping.new('pepperoni')
+      pizza.add_topping(pepperoni)
+
+      expect(pizza.toppings.include? pepperoni).to eq(true)
+    end
+    it 'should return false if the pizza is not late' do
+      pizza = Pizza.new
+      pizza.deliver!
+
+      expect(pizza.late?(Time.now + 40*60)).to eq(true)
+    end
   end
   it "exists" do
     expect(Pizza).to be_a(Class)
